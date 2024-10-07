@@ -1,4 +1,11 @@
 // SPDX-License-Identifier: MIT
+/*
+Original
+- @author Paul De Jesús Belches Flores-Gómez (paulbelches)
+- @author David Uriel Soto Alvarez
+Original project: https://github.com/LPELCRACK896/CompetencySystemApi.git
+*/
+
 pragma solidity >=0.4.22 <0.9.0;
 
 contract Migrations {
