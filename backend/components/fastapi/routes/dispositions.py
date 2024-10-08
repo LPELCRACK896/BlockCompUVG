@@ -30,17 +30,20 @@ async def get_disposition_by_id(disposition_id: PydanticObjectId):
     return disposition
 
 
-@dispositions.put("/{disposition_id}", response_model=Disposition)
+@dispositions.patch("/{disposition_id}", response_model=Disposition)
 async def update_disposition(disposition_id: PydanticObjectId, disposition_update: UpdateDisposition):
     disposition = await Disposition.get(disposition_id)
     if not disposition:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Disposición no encontrada")
 
-    disposition.name = disposition_update.name
-    disposition.meaning = disposition_update.meaning
-    await disposition.save()
-    return disposition
+    if disposition_update.name is not None:
+        disposition.name = disposition_update.name
 
+    if disposition_update.meaning is not None:
+        disposition.meaning = disposition_update.meaning
+
+    await disposition.save()  # Guardar los cambios
+    return disposition
 
 @dispositions.delete("/{disposition_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_disposition(disposition_id: PydanticObjectId):

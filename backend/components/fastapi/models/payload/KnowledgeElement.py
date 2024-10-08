@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 class CreateKnowledgeElement(BaseModel):
@@ -5,5 +7,5 @@ class CreateKnowledgeElement(BaseModel):
     meaning: str
 
 class UpdateKnowledgeElement(BaseModel):
-    name: str
-    meaning: str
+    name: Optional[str] = None
+    meaning: Optional[str] = None

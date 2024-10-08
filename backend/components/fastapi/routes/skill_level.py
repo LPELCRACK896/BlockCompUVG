@@ -33,18 +33,20 @@ async def get_skill_level_by_id(skill_level_id: PydanticObjectId):
     return skill_level
 
 
-@skill_levels.put("/{skill_level_id}", response_model=SkillLevel)
+@skill_levels.patch("/{skill_level_id}", response_model=SkillLevel)
 async def update_skill_level(skill_level_id: PydanticObjectId, skill_level_update: UpdateSkillLevel):
     skill_level = await SkillLevel.get(skill_level_id)
     if not skill_level:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Nivel de habilidad no encontrado")
 
-    # Actualizar los campos
-    skill_level.name = skill_level_update.name
-    skill_level.description = skill_level_update.description
-    await skill_level.save()  # Guardar los cambios
-    return skill_level
+    if skill_level_update.name is not None:
+        skill_level.name = skill_level_update.name
 
+    if skill_level_update.description is not None:
+        skill_level.description = skill_level_update.description
+
+    await skill_level.save()
+    return skill_level
 
 @skill_levels.delete("/{skill_level_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_skill_level(skill_level_id: PydanticObjectId):

@@ -35,17 +35,24 @@ async def get_competency_by_id(competency_id: PydanticObjectId):
     return competency
 
 
-@competencies.put("/{competency_id}", response_model=Competency)
+@competencies.patch("/{competency_id}", response_model=Competency)
 async def update_competency(competency_id: PydanticObjectId, competency_update: UpdateCompetency):
     competency = await Competency.get(competency_id)
     if not competency:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Competencia no encontrada")
 
-    # Actualizar los campos
-    competency.name = competency_update.name
-    competency.statement = competency_update.statement
-    competency.knowledgeElements = competency_update.knowledgeElements
-    competency.dispositions = competency_update.dispositions
+    if competency_update.name is not None:
+        competency.name = competency_update.name
+
+    if competency_update.statement is not None:
+        competency.statement = competency_update.statement
+
+    if competency_update.knowledgeElements is not None:
+        competency.knowledgeElements = competency_update.knowledgeElements
+
+    if competency_update.dispositions is not None:
+        competency.dispositions = competency_update.dispositions
+
     await competency.save()  # Guardar los cambios
     return competency
 

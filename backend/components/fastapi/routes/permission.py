@@ -37,18 +37,30 @@ async def get_permission_by_id(permission_id: PydanticObjectId):
     return permission
 
 
-@permissions.put("/{permission_id}", response_model=Permission)
+@permissions.patch("/{permission_id}", response_model=Permission)
 async def update_permission(permission_id: PydanticObjectId, permission_update: UpdatePermission):
     permission = await Permission.get(permission_id)
     if not permission:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Permiso no encontrado")
 
-    permission.competencyId = permission_update.competencyId
-    permission.ownerAddress = permission_update.ownerAddress
-    permission.grantedTo = permission_update.grantedTo
-    permission.canEdit = permission_update.canEdit
-    permission.canTransfer = permission_update.canTransfer
-    permission.grantedAt = permission_update.grantedAt
+    if permission_update.competencyId is not None:
+        permission.competencyId = permission_update.competencyId
+
+    if permission_update.ownerAddress is not None:
+        permission.ownerAddress = permission_update.ownerAddress
+
+    if permission_update.grantedTo is not None:
+        permission.grantedTo = permission_update.grantedTo
+
+    if permission_update.canEdit is not None:
+        permission.canEdit = permission_update.canEdit
+
+    if permission_update.canTransfer is not None:
+        permission.canTransfer = permission_update.canTransfer
+
+    if permission_update.grantedAt is not None:
+        permission.grantedAt = permission_update.grantedAt
+
     await permission.save()
     return permission
 

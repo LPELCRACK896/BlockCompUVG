@@ -37,15 +37,19 @@ async def get_knowledge_element_by_id(element_id: PydanticObjectId):
 
 
 # 4. Actualizar un elemento de conocimiento
-@knowledge_element.put("/{element_id}", response_model=KnowledgeElement)
+@knowledge_element.patch("/{element_id}", response_model=KnowledgeElement)
 async def update_knowledge_element(element_id: PydanticObjectId, element_update: UpdateKnowledgeElement):
     element = await KnowledgeElement.get(element_id)
     if not element:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Elemento de conocimiento no encontrado")
 
     # Actualizar los campos
-    element.name = element_update.name
-    element.meaning = element_update.meaning
+    if element_update.name is not None:
+        element.name = element_update.name
+
+    if element_update.description is not None:
+        element.description = element_update.description
+
     await element.save()  # Guardar los cambios
     return element
 
