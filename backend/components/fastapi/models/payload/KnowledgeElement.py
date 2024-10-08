@@ -1,9 +1,9 @@
 from pydantic import BaseModel
 
-class CreateDisposition(BaseModel):
+class CreateKnowledgeElement(BaseModel):
     name: str
     meaning: str
 
-class UpdateDisposition(BaseModel):
+class UpdateKnowledgeElement(BaseModel):
     name: str
     meaning: str
