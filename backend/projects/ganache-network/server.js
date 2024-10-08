@@ -12,10 +12,10 @@ if (!fs.existsSync(dbPath)) {
 }
 
 const options = {
-  wallet: { totalAccounts: 0 },
-  logging: {
+  wallet: { totalAccounts: 1 },
+/*  logging: {
     quiet: false,
-  },
+  },*/
   database: {
     dbPath: dbPath,
   },

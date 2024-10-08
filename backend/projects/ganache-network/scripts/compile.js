@@ -1,34 +1,35 @@
-const solc = require("solc");
-const fs = require("fs");
-const path = require("path");
+const path = require('path');
+const fs = require('fs-extra');
+const solc = require('solc');
 
-// Ruta hacia el contrato
-const contractPath = path.resolve(__dirname, "../contracts", "CompetencySystem.sol");
-const source = fs.readFileSync(contractPath, "utf8");
+// Ruta del contrato
+const contractPath = path.resolve(__dirname, '../contracts', 'CompetencySystemFactory.sol');
+const source = fs.readFileSync(contractPath, 'utf8');
 
+// Compilar el contrato
 const input = {
-  language: "Solidity",
+  language: 'Solidity',
   sources: {
-    "CompetencySystem.sol": { content: source },
+    'CompetencySystemFactory.sol': {
+      content: source
+    }
   },
   settings: {
     outputSelection: {
-      "*": {
-        "*": ["abi", "evm.bytecode"],
-      },
-    },
-  },
+      '*': {
+        '*': ['abi', 'evm.bytecode']  // ABI y Bytecode
+      }
+    }
+  }
 };
 
 const output = JSON.parse(solc.compile(JSON.stringify(input)));
-const abi = output.contracts["CompetencySystem.sol"].CompetencySystem.abi;
-const bytecode = output.contracts["CompetencySystem.sol"].CompetencySystem.evm.bytecode.object;
 
-// Guardar ABI y bytecode
-const buildPath = path.resolve(__dirname, "../build");
-if (!fs.existsSync(buildPath)) {
-  fs.mkdirSync(buildPath);
-}
+// Escribir ABI y Bytecode en archivos
+const buildPath = path.resolve(__dirname, '../build');
+fs.ensureDirSync(buildPath);
 
-fs.writeFileSync(path.resolve(buildPath, "CompetencySystem.json"), JSON.stringify({ abi, bytecode }));
-console.log("Compilación completada y guardada en /build");
+const contract = output.contracts['CompetencySystemFactory.sol'].CompetencySystemFactory;
+fs.outputJsonSync(path.resolve(buildPath, 'CompetencySystemFactory.json'), contract);
+
+console.log('Contrato compilado con éxito. ABI y bytecode guardados en la carpeta build.');
