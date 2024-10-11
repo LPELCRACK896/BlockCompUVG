@@ -12,13 +12,17 @@ if (!fs.existsSync(dbPath)) {
 }
 
 const options = {
-  wallet: { totalAccounts: 1 },
-/*  logging: {
-    quiet: false,
-  },*/
+  wallet: {
+    totalAccounts: 1,
+    defaultBalance: 1000  // Asigna 1000 ETH a la cuenta por defecto
+  },
   database: {
     dbPath: dbPath,
   },
+  chain: {
+    chainId: 1337,       // Fija el chainId
+    networkId: 1337,     // Fija el networkId
+  }
 };
 
 const server = ganache.server(options);

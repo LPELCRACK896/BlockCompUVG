@@ -10,7 +10,7 @@ class User(Document):
     password: str = Field(..., description="Hashed password of the user")
     role: Literal["student", "educator"] = Field(..., description="Role of the user, either student or educator")
     profile_pic: Optional[str] = Field(None, description="URL of the user's profile picture")
-    public_key: str = Field(..., description="Public key of the user for blockchain operations")
+    private_key: str = Field(..., description="Private key of the user for blockchain operations")
     verified: bool = Field(False, description="Whether the user's account is verified")
     notifications: Optional[List[str]] = Field(default=[], description="List of notification IDs associated with the user")
 

@@ -18,11 +18,85 @@ Respecto a las libertades tomadas es importante mencionar que cambia un poco el 
 - **projects**: En el esquema original estas carpetas contienen archivo de configuración `toml`, sin embargo, en este esquema se encuentra el punto de entrada de los distintos servicios (`app.py`, `main.py`, etc.) también encontramos archivos de configuracion y son el espacio en el que encontramos `requirements.txt`, `venv` y  
 
 
-# Proyectos
+# Proyectos (projects)
+
+# fastapi
+
+Componente con el se interactua con la red de blockchain utilizando _web3_
+
+
 
 # Ganache
+## Objetivo
+## Requisitos
 
 
 # BlockCompUVG - API (Fastapi)
+
+
+
+# Run
+# Paso 0 - Requisitos
+Tanto para ganache y truffle como para fastapi es necesario asegurarnos de contar con la versión adecuada para poder ejecutarlo. 
+
+## Node 
+Asegurarse de tener una versión compatible de node
+
+```shell
+node --version
+```
+(La versión con la que se desarrolló fue Node v18.20.4)
+
+## Python
+De manera similar con python. 
+```shell
+python --version
+```
+Fastapi se desarrolló con la versión Python 3.12.5
+
+
+Es altamente recomendado utilizar un entorno virtual para la instalación de los requirimiento asociados con esta sección. 
+
+# Paso 1: Ganache
+
+- Working directory: `./projects/ganache-network`
+- Entry point: `./projects/ganache-network/server.js`
+
+
+## Paso 1.1
+Asegurarse de tener las dependencias. 
+
+```shell
+npm i
+```
+
+## Paso 1.2
+Ejecutar el script `start`
+```shell
+npm run start
+```
+El resultado en la consola debe ser algo como lo siguiente.
+
+```
+Ganache corriendo en http://127.0.0.1:8545
+```
+
+Esta terminal debera continuar corriendo durante todo el despliegue. (simula la red de eth.)
+
+
+# Paso 2: truffle
+
+Working directory: `./projects/truffle-compiler/`
+
+## Paso 2.1
+Asegurarse de tener las dependencias. 
+
+```shell
+npm i
+```
+
+
+
+
 
 

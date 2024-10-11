@@ -7,4 +7,3 @@ class RegisterPayload(BaseModel):
     email: AnyStr
     password: AnyStr
     role: Literal["student", "educator"]
-    profile_pic: Optional[AnyStr]
